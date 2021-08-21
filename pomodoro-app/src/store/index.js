@@ -8,9 +8,26 @@ export default {
       completedPomodoros: 0,
       currentTimeInSeconds: 25 * 60,
       interval: null,
+      mealIsSelected: false,
+      ingredients: [],
     };
   },
   mutations: {
+    setIngredients(state, ingredientArray) {
+      state.ingredients = ingredientArray;
+    },
+    toggleMealSelect(state) {
+      state.mealIsSelected = !state.mealIsSelected;
+    },
+    resetEverything(state) {
+      console.log('reset everything');
+      state.progressInt = 0;
+      state.sessionState = 0;
+      state.interval = null;
+      state.ingredients = [];
+      state.currentTimeInSeconds = 25 * 60;
+      state.mealIsSelected = false;
+    },
     incrementProgress(state) {
       if (state.progressInt > 3) {
         state.progressInt = 0;
@@ -65,6 +82,15 @@ export default {
     },
     stopTimer({ commit }) {
       commit('stopTimer');
+    },
+    setIngredients({ commit }, ingredientArray) {
+      commit('setIngredients', ingredientArray);
+    },
+    toggleMealSelect({ commit }) {
+      commit('toggleMealSelect');
+    },
+    resetEverything({ commit }) {
+      commit('resetEverything');
     },
   },
 };

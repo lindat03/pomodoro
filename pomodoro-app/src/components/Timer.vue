@@ -21,11 +21,20 @@ export default {
       timerOn: false,
     };
   },
+  mounted() {
+    if (this.mealIsSelected) {
+      this.toggleTimer();
+    }
+  },
+  beforeUnmount() {
+    this.resetEverything();
+  },
   computed: mapState([
     'progressInt',
     'sessionState',
     'currentTimeInSeconds',
     'interval',
+    'mealIsSelected',
   ]),
   methods: {
     ...mapActions([
@@ -36,9 +45,11 @@ export default {
       'changeToStudyTime',
       'startTimer',
       'stopTimer',
+      'resetEverything',
     ]),
 
     toggleSession() {
+      console.log(this.progressInt);
       if (this.timerOn) {
         this.toggleTimer();
       }
@@ -99,7 +110,7 @@ export default {
 #timer {
   position: relative;
   width: 20rem;
-  height: 25rem;
+  height: 10rem;
   margin: auto;
 }
 
