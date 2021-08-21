@@ -1,6 +1,6 @@
 <template>
   <div class="meal-icon">
-    <img :src="require('../assets/' + mealSrc + '.png')" style="width: 2rem" />
+    <img :src="require('../assets/' + mealSrc + '.png')" style="width: 15rem" />
   </div>
 </template>
 

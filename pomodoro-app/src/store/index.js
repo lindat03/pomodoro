@@ -5,20 +5,31 @@ export default {
     return {
       progressInt: 0, // tracks how many study sessions user has done
       sessionState: 0, // 0 - study, 1 - short break, 2 - long break
-      completedPomodoros: 0,
       currentTimeInSeconds: 25 * 60,
       interval: null,
       mealIsSelected: false,
       ingredients: [],
+      selectedMeal: null,
+      completedMeals: [],
     };
   },
   mutations: {
     setIngredients(state, ingredientArray) {
       state.ingredients = ingredientArray;
     },
+    setSelectedMeal(state, selectedMeal) {
+      state.selectedMeal = selectedMeal;
+      console.log(state.selectedMeal);
+    },
     toggleMealSelect(state) {
       state.mealIsSelected = !state.mealIsSelected;
+      console.log(state.mealIsSelected);
     },
+    addCompletedMeal(state, completedMeal) {
+      state.completedMeals.push(completedMeal);
+      console.log(state.completedMeals);
+    },
+
     resetEverything(state) {
       console.log('reset everything');
       state.progressInt = 0;
@@ -91,6 +102,12 @@ export default {
     },
     resetEverything({ commit }) {
       commit('resetEverything');
+    },
+    setSelectedMeal({ commit }, selectedMeal) {
+      commit('setSelectedMeal', selectedMeal);
+    },
+    addCompletedMeal({ commit }, completedMeal) {
+      commit('addCompletedMeal', completedMeal);
     },
   },
 };

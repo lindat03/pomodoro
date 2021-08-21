@@ -27,7 +27,13 @@ export default {
     }
   },
   beforeUnmount() {
-    this.resetEverything();
+    if (this.timerOn) {
+      console.log('timer was on');
+      this.toggleTimer();
+    }
+    if (this.progressInt !== 4) {
+      this.resetEverything();
+    }
   },
   computed: mapState([
     'progressInt',
@@ -49,7 +55,6 @@ export default {
     ]),
 
     toggleSession() {
-      console.log(this.progressInt);
       if (this.timerOn) {
         this.toggleTimer();
       }
@@ -64,9 +69,11 @@ export default {
       } else if (this.sessionState === 2) {
         this.incrementProgress(); //resets progress
         this.changeToStudyTimer();
+        //do bake function!!!!
       } else {
         this.changeToStudyTimer();
       }
+      console.log(this.progressInt);
     },
 
     changeToShortBreakTimer() {
@@ -90,6 +97,11 @@ export default {
       const seconds = this.currentTimeInSeconds % 60;
       const minutesDisplay = minutes < 10 ? '0' + minutes : minutes;
       const secondsDisplay = seconds < 10 ? '0' + seconds : seconds;
+      if (this.currentTimeInSeconds === 0) {
+        console.log('bruh');
+        this.toggleSession();
+      }
+
       return `${minutesDisplay}:${secondsDisplay}`;
     },
     toggleTimer() {

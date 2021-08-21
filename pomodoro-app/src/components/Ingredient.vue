@@ -14,7 +14,7 @@
       {{ ingredients[3] }}
     </div>
     <div class="intermission" v-if="sessionState !== 0">
-      <h3>break time</h3>
+      <h3>break time!</h3>
     </div>
   </div>
 </template>

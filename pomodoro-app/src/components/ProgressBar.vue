@@ -19,6 +19,7 @@
         id="element4"
       ></div>
     </div>
+    <hr />
   </div>
 </template>
 
