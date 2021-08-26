@@ -5,17 +5,18 @@ export default {
     return {
       progressInt: 0, // tracks how many study sessions user has done
       sessionState: 0, // 0 - study, 1 - short break, 2 - long break
-      currentTimeInSeconds: 25 * 60,
+      currentTimeInSeconds: 25 * 60, //start timer is 25 minutes
       interval: null,
       mealIsSelected: false,
-      ingredients: [],
       selectedMeal: null,
+      ingredients: [],
       completedMeals: [],
     };
   },
   mutations: {
     setIngredients(state, ingredientArray) {
       state.ingredients = ingredientArray;
+      console.log('HELLO' + state.ingredients);
     },
     setSelectedMeal(state, selectedMeal) {
       state.selectedMeal = selectedMeal;

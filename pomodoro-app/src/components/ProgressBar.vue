@@ -5,19 +5,27 @@
       <div
         :class="['progress-bar-elements', { 'set-unfilled': progressInt < 1 }]"
         id="element1"
-      ></div>
+      >
+        <Ingredient :imgSrc="ingredients[0]" />
+      </div>
       <div
         :class="['progress-bar-elements', { 'set-unfilled': progressInt < 2 }]"
         id="element2"
-      ></div>
+      >
+        <Ingredient :imgSrc="ingredients[1]" />
+      </div>
       <div
         :class="['progress-bar-elements', { 'set-unfilled': progressInt < 3 }]"
         id="element3"
-      ></div>
+      >
+        <Ingredient :imgSrc="ingredients[2]" />
+      </div>
       <div
         :class="['progress-bar-elements', { 'set-unfilled': progressInt < 4 }]"
         id="element4"
-      ></div>
+      >
+        <Ingredient :imgSrc="ingredients[3]" />
+      </div>
     </div>
     <hr />
   </div>
@@ -25,14 +33,17 @@
 
 <script>
 import { mapState } from 'vuex';
+import Ingredient from './Ingredient.vue';
+
 export default {
   name: 'ProgressBar',
+  components: {
+    Ingredient,
+  },
   data() {
     return {};
   },
-  computed: mapState({
-    progressInt: (state) => state.progressInt,
-  }),
+  computed: mapState(['progressInt', 'ingredients']),
 };
 </script>
 
@@ -46,11 +57,8 @@ export default {
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: rgb(228, 72, 72);
-  border: solid rgb(228, 72, 72);
-  border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 3rem;
+  height: 3rem;
 }
 
 .progress-bar-line {
@@ -61,6 +69,6 @@ export default {
 }
 
 .set-unfilled {
-  background-color: transparent;
+  opacity: 40%;
 }
 </style>

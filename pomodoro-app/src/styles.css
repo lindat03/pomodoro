@@ -1,10 +1,33 @@
+@font-face {
+  font-family: 'pixelFont';
+  src: url(./assets/Stardew_Valley.ttf);
+}
+@font-face {
+  font-family: 'regularText';
+  src: url(./assets/rainyhearts.ttf);
+}
 #app {
-  max-width: 30rem;
-  margin: auto;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: regularText;
+  letter-spacing: 0.2rem;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+body {
+  background: #cdb6a3 url(./assets/background.png) no-repeat;
+  background-size: cover;
+}
+
+.game-container {
+  position: relative;
+  height: 60%;
+  width: 80%;
+  margin: auto;
+  padding: 2%;
+  background: url(./assets/container.png) no-repeat;
+  background-size: 100% 100%;
+}
+
+h1,
+h2 {
+  font-family: pixelFont;
 }
