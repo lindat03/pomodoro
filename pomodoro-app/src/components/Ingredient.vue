@@ -1,7 +1,7 @@
 <template>
   <div class="ingredient-div">
     <img
-      :src="require('../assets/ingredient_' + imgSrc + '.png')"
+      :src="require('../assets/ingredients/ingredient_' + imgSrc + '.png')"
       style="width: 2.5rem"
     />
   </div>

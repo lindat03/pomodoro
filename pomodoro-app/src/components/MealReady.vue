@@ -1,16 +1,24 @@
 <template>
   <div class="meal-ready-div">
     <div class="before-button-press" v-if="!isMealCooking">
-      <h1>your meal is ready!</h1>
-      <Meal :mealSrc="selectedMeal.imgSrc" />
-      <button @click="makeMeal">make meal</button>
+      <h1>Your meal is ready!</h1>
+      <div class="meal-container">
+        <Meal id="meal-img"  :mealSrc="selectedMeal.imgSrc" />
+      </div>
+      <div class="make-meal-button-div">
+        <button id="make-meal-btn" @click="makeMeal">Make Meal</button>
+      </div>
     </div>
     <div class="after-button press" v-if="isMealCooking">
-      <Meal :mealSrc="selectedMeal.imgSrc" />
-      <h1>good job! you have successfully made {{ selectedMeal.name }}</h1>
-      <button @click="resetEverything">
-        make another meal
-      </button>
+      <h1>Good job! You have successfully made {{ selectedMeal.name }}.</h1>
+      <div class="meal-container">
+        <Meal :mealSrc="selectedMeal.imgSrc" />
+      </div>
+      <div class="reset-button">
+        <button @click="resetEverything">
+        Make Another Meal
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -38,3 +46,17 @@ export default {
   },
 };
 </script>
+ <style scoped>
+ .meal-container{
+   position: relative;
+   height: 10%;
+ }
+ #meal-img {
+   position:relative;
+   height: 1rem;
+   pointer-events: none;
+ }
+ #make-meal-btn {
+   z-index: 3;
+ }
+ </style>

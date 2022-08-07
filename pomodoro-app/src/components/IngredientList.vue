@@ -1,6 +1,5 @@
 <template>
   <div class="ingredient-div" v-if="mealIsSelected">
-    <h1>ingredients</h1>
     <div class="ingredient" v-if="progressInt === 0 && sessionState === 0">
       <Ingredient :imgSrc="ingredients[0]" />
     </div>
@@ -24,10 +23,12 @@
 import { mapState } from 'vuex';
 import Ingredient from './Ingredient.vue';
 
+
 export default {
   name: 'IngredientList',
   components: {
     Ingredient,
+
   },
   data() {
     return {};
@@ -38,5 +39,6 @@ export default {
     'sessionState',
     'mealIsSelected',
   ]),
+
 };
 </script>

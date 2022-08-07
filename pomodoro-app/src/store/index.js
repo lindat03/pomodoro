@@ -24,7 +24,8 @@ export default {
     },
     toggleMealSelect(state) {
       state.mealIsSelected = !state.mealIsSelected;
-      console.log(state.mealIsSelected);
+      // console.log(state.mealIsSelected);
+      // console.log('TESTESTETTSET');
     },
     addCompletedMeal(state, completedMeal) {
       state.completedMeals.push(completedMeal);

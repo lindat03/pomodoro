@@ -4,11 +4,13 @@
 }
 @font-face {
   font-family: 'regularText';
-  src: url(./assets/rainyhearts.ttf);
+  src: url(./assets/sf-pixelate.regular.ttf);
 }
 #app {
   font-family: regularText;
-  letter-spacing: 0.2rem;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.1rem;
   text-align: center;
 }
 
@@ -19,7 +21,7 @@ body {
 
 .game-container {
   position: relative;
-  height: 60%;
+  height: 45rem;
   width: 80%;
   margin: auto;
   padding: 2%;
@@ -31,3 +33,17 @@ h1,
 h2 {
   font-family: pixelFont;
 }
+h1 {
+  color: #927a67;
+  text-align: center;
+}
+h2 {
+  font-size: 2rem;
+  font-size: 2.5vw;
+  color: #927a67;
+  text-align: center;
+}
+/* h3 {
+  margin-top: 10px;
+  height: 8rem;
+} */

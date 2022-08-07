@@ -1,11 +1,15 @@
 <template>
   <div id="timer">
-    <img class="pause-icon" src="../assets/pause.png" alt="" />
+    <audio id="timer-ding" src="../assets/timer-ding.mp3" v-if="timerDing === true"></audio>
     <div id="display">
       {{ timeDisplay() }}
     </div>
-    <button @click="toggleTimer()">{{ timerButtonText }} Timer</button>
-    <button @click="toggleSession()">End {{ stageButtonText }}</button>
+    <div class="pause-icon-div">
+      <img v-if="timerOn===true" @click="toggleTimer()" class="pause-icon" src="../assets/pause.png" alt="" />
+      <img v-if="timerOn===false" @click="toggleTimer()" class="pause-icon" src="../assets/play.png" alt="" />
+    </div>
+
+    <button @click="toggleSession()" class="toggle-session">End {{ stageButtonText }}</button>
   </div>
 </template>
 
@@ -19,6 +23,7 @@ export default {
       timerButtonText: 'Start',
       stageButtonText: 'Study Session',
       timerOn: false,
+      timerDing: false,
     };
   },
   mounted() {
@@ -53,18 +58,20 @@ export default {
       'stopTimer',
       'resetEverything',
     ]),
-
+    toggleTimerDing(){
+      this.timerDing = !this.timerDing;
+      setTimeout(() => this.timerDing = !this.timerDing, 100);
+    },
     toggleSession() {
-      if (this.timerOn) {
-        this.toggleTimer();
-      }
       if (this.sessionState === 0) {
         if (this.progressInt < 3) {
           this.changeToShortBreakTimer();
-          this.incrementProgress();
+          // this.incrementProgress();
+          this.toggleTimerDing()
         } else {
           this.changeToLongBreakTimer();
           this.incrementProgress();
+          this.toggleTimerDing()
         }
       } else if (this.sessionState === 2) {
         this.incrementProgress(); //resets progress
@@ -72,6 +79,8 @@ export default {
         //do bake function!!!!
       } else {
         this.changeToStudyTimer();
+        this.incrementProgress();
+        this.toggleTimerDing()
       }
       console.log(this.progressInt);
     },
@@ -121,32 +130,48 @@ export default {
 <style scoped>
 #timer {
   position: relative;
-  width: 20rem;
-  height: 10rem;
-  margin: auto;
+  /* width: 100%;
+  background: url(../assets/timer-container.png) no-repeat;
+  background-size: 80% 80%;
+  background-position: center;
+  height: 200%; */
+  /* margin-top: -3vw; */
 }
 
 #display {
-  position: absolute;
-  top: 7rem;
-  left: 50%;
-  font-size: 2rem;
-  transform: translate(-50%, 0%);
+  font-size: 3vw;
+  position: relative;
+  margin: auto;
+  top: 50%;
+  transform: translate(0%, -50%);
 }
-
-.pause-icon {
+.pause-icon-div {
+  /* position: absolute;
+  margin: auto;
+  top: 50%;
+  transform: translate(0%, -50%);
+  opacity: 10%;
+  z-index: 10;
+  transition: 0.5s; */
+}
+.pause-icon{
   position: absolute;
-  height: 4rem;
-  width: 4rem;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  top: 6.5rem;
-  opacity: 0%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin:auto;
+  opacity: 5%;
   z-index: 10;
   transition: 0.5s;
+  height: 8vw;
+  cursor: pointer;
 }
-
 .pause-icon:hover {
   opacity: 30%;
 }
+
+.toggle-session{
+  position: relative;
+  top: 90%;
+}
+
 </style>
