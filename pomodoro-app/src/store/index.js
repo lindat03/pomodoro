@@ -1,13 +1,14 @@
 export default {
   name: 'Store',
   state() {
-    //basically the data() of stores
+    //the data() of stores
     return {
       progressInt: 0, // tracks how many study sessions user has done
       sessionState: 0, // 0 - study, 1 - short break, 2 - long break
       currentTimeInSeconds: 25 * 60, //start timer is 25 minutes
       interval: null,
       mealIsSelected: false,
+      confirmationScreenToggled: false,
       selectedMeal: null,
       ingredients: [],
       completedMeals: [],
@@ -16,30 +17,30 @@ export default {
   mutations: {
     setIngredients(state, ingredientArray) {
       state.ingredients = ingredientArray;
-      console.log('HELLO' + state.ingredients);
+      console.log('Ingredients are set: ' + state.ingredients);
     },
     setSelectedMeal(state, selectedMeal) {
       state.selectedMeal = selectedMeal;
-      console.log(state.selectedMeal);
+      console.log('Selected meal is ' + state.selectedMeal);
     },
     toggleMealSelect(state) {
       state.mealIsSelected = !state.mealIsSelected;
-      // console.log(state.mealIsSelected);
-      // console.log('TESTESTETTSET');
+      console.log('Meal select screen was toggled.')
     },
     addCompletedMeal(state, completedMeal) {
       state.completedMeals.push(completedMeal);
-      console.log(state.completedMeals);
+      console.log('Current completed meals: ' + state.completedMeals);
     },
 
     resetEverything(state) {
-      console.log('reset everything');
+      console.log('Everything is reset; main screen restored');
       state.progressInt = 0;
       state.sessionState = 0;
       state.interval = null;
       state.ingredients = [];
       state.currentTimeInSeconds = 25 * 60;
       state.mealIsSelected = false;
+      state.confirmationScreenToggled = false;
     },
     incrementProgress(state) {
       if (state.progressInt > 3) {

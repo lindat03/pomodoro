@@ -18,17 +18,14 @@ export default {
 
 <style scoped>
 .meal {
-  /* margin: 10%; */
-  width: 60%;
-  margin: 8% auto 8% auto;
+  width: 90%;
+  height: 100%;
+  object-fit: contain;
+  /* margin: 8% auto 8% auto; */
 }
 .meal-icon {
+  position: relative;
   padding: 5%;
   margin: .5rem;
-  /* background: url(../assets/pastry_container.png) no-repeat;
-  background-size: 100% 100%;
-  width: 100%;
-  height: 100%; */
-  /* margin-bottom: 4rem; */
 }
 </style>

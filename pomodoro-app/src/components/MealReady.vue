@@ -6,7 +6,7 @@
         <Meal id="meal-img"  :mealSrc="selectedMeal.imgSrc" />
       </div>
       <div class="make-meal-button-div">
-        <button id="make-meal-btn" @click="makeMeal">Make Meal</button>
+        <button id="make-meal-btn" class="game-btns" @click="makeMeal">Make Meal</button>
       </div>
     </div>
     <div class="after-button press" v-if="isMealCooking">
@@ -15,7 +15,7 @@
         <Meal :mealSrc="selectedMeal.imgSrc" />
       </div>
       <div class="reset-button">
-        <button @click="resetEverything">
+        <button @click="resetEverything" class="game-btns" id="reset-btn">
         Make Another Meal
         </button>
       </div>
@@ -49,14 +49,27 @@ export default {
  <style scoped>
  .meal-container{
    position: relative;
-   height: 10%;
+   width: 20rem;
+   margin: auto;
+   height: 80%;
  }
  #meal-img {
    position:relative;
-   height: 1rem;
+   height: 50%;
    pointer-events: none;
  }
  #make-meal-btn {
    z-index: 3;
  }
+ #reset-btn {
+  font-size: 2vw;
+ }
+ .before-button-press{
+  display:flex;
+  flex-flow: column;
+  height: 100%;
+  align-content: stretch;
+  align-items: stretch;
+ }
+
  </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="meal-div">
-    <div v-if="mealIsSelected === false && confirmationScreen === false" id="meal-selection-div">
+    <div v-if="mealIsSelected === false" id="meal-selection-div">
       <h1>Select Your Pastry!</h1>
       <div class="meal-select-row">
         <div class="selection-arrows-container">
@@ -17,7 +17,7 @@
             />
           </div>
           <div class="meal-display">
-            <Meal :mealSrc="meal[mealIndex].imgSrc" />
+            <Meal :mealSrc="meal[mealIndex].imgSrc" id="meal-select-icon"/>
           </div>
           <div @click="increaseMealIndex" class="increase-button-container">
             <img
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div
-      v-if="mealIsSelected === true && confirmationScreen === false"
+      v-if="mealIsSelected === true"
       id="selected-meal-container"
     >
       <div class="header">
@@ -59,35 +59,23 @@
       </div>
       <div class="main-bake-container">
         <div class="sidebar">
-          <div class="meal-and-timer">
-            <Timer v-if="mealIsSelected === true && progressInt !== 4"/>
-          </div>
-          <button @click="toggleConfirmationScreen">Give Up</button>
+          <Timer v-if="mealIsSelected === true && progressInt !== 4"/>
+          <button @click="toggleConfirmationScreen" id="give-up-btn" class="game-btns">Give Up</button>
         </div>
         <div class="study-container">
           <div  id="selected-meal-display">
               <h2 class="selected-meal-title">Selected Meal: {{ selectedMeal.name }}</h2>
-              <Meal :mealSrc="meal[mealIndex].imgSrc" />
+          </div>
+          <div class="study-meal-bg">
+            <Meal :mealSrc="meal[mealIndex].imgSrc" id="study-meal-icon"/>
           </div>
           <div class="ingredient-description">
             <span v-if="sessionState == 0">{{meal[mealIndex].steps[progressInt]}}</span>
-            <!-- <IngredientList v-if="progressInt !== 4 && mealIsSelected === true " />  -->
+            <span v-if="sessionState == 1">Break Time!</span>
+            <ProgressBar v-if="mealIsSelected === true" />
           </div>
-          <ProgressBar v-if="mealIsSelected === true" />
         </div>
       </div>
-    </div>
-    <div id="confirmation-screen-div" v-if="confirmationScreen === true">
-      <h3>Are you sure you want to give up? You'll lose all of your progress!</h3>
-      <button
-        @click="
-          toggleConfirmationScreen
-          // toggleMealSelect;
-        "
-      >
-        Yes
-      </button>
-      <button @click="toggleConfirmationScreen">No</button>
     </div>
   </div>
 </template>
@@ -98,7 +86,6 @@ import { mapActions, mapState } from 'vuex';
 import Ingredient from './Ingredient.vue';
 import ProgressBar from './ProgressBar.vue';
 import Timer from './Timer.vue';
-// import IngredientList from './IngredientList.vue';
 export default {
   name: 'MealSelect',
   components: {
@@ -106,7 +93,6 @@ export default {
     Ingredient,
     Timer,
     ProgressBar,
-    // IngredientList,
   },
   data() {
     return {
@@ -155,10 +141,9 @@ export default {
         },
       ],
       selectedMeal: null,
-      confirmationScreen: false,
     };
   },
-  computed: mapState(['mealIsSelected', 'progressInt', 'sessionState']),
+  computed: mapState(['mealIsSelected', 'progressInt', 'sessionState',]),
   methods: {
     ...mapActions(['setIngredients', 'toggleMealSelect', 'setSelectedMeal']),
     increaseMealIndex() {
@@ -180,11 +165,15 @@ export default {
       this.selectedMeal = this.meal[this.mealIndex];
       this.setIngredients(this.selectedMeal.ingredients);
       this.setSelectedMeal(this.selectedMeal);
+      this.confirmedRestart = false;
     },
     toggleConfirmationScreen() {
-      this.confirmationScreen = !this.confirmationScreen;
+      this.$store.state.confirmationScreenToggled = true;
       console.log("Confirmation screen toggled.")
     },
+    testFunction(){
+      console.log('Test function called.')
+    }
 
   },
 };
@@ -199,13 +188,14 @@ export default {
 }
 .selected-meal-title {
   /* width: 40%; */
-  font-size: 2.5vw;
+  font-size: 3vw;
   /* line-height: 110%; */
 }
 
 .main-bake-container {
   display: flex;
   justify-content: center;
+  gap: 40px;
 }
 .meal-and-timer{
   width: 100%;
@@ -219,14 +209,15 @@ export default {
 }
 #study-header{
   font-size: 3.7vw;
-  margin-top: 2rem;
+  margin-top: 3rem;
   margin-bottom: 3rem;
 }
 .ingredient-description{
   width: 80%;
+  padding: 5%;
   display: grid;
-  /* grid-template-columns: 80% 20%; */
   margin: auto;
+
 }
 /****
 
@@ -246,7 +237,7 @@ export default {
   height: 60%;
   display: grid;
   grid-template-columns: 50% 50%;
-  margin: auto 6% 5% 6%;
+  margin: auto 6% 1% 6%;
 }
 /* START OF MEAL DESCRIPTION */
 #meal-description {
@@ -278,13 +269,18 @@ h3 {
   grid-template-columns: 10% 90%;
 }
 .step{
-  font-size: 15px;
+  text-align: left;
+  font-size: 1.5vw;
 }
 span {
   position: relative;
   top: 25%;
-  font-size: 140%;
+  font-size: 1.5vw;
   margin-left: 5%;
+}
+
+#meal-select-icon{
+  margin: 8% auto 8% auto;
 }
 /* END OF MEAL DESCRIPTION */
 .selection-arrow {
@@ -301,11 +297,7 @@ span {
   cursor: pointer;
 }
 .select-btn {
-  height: 3.5rem;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  bottom: 2rem;
+  height: 5vw;
   cursor: pointer;
 }
 .decrease-button-container, .increase-button-container{
@@ -317,15 +309,52 @@ span {
 }
 
 #meal-div{
-  position: absolute;
   width: 100%;
+  height: 100%;
 }
 
 .sidebar{
-  display: inline-block
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+#give-up-btn{
+  margin-top: 5%;
 }
 #meal-selection-div{
   display: flex;
   flex-direction: column;
 }
+
+#study-meal-icon{
+  display: inline-block;
+  height: 10rem;
+  background: url(../assets/pastry_container.png) no-repeat;
+  background-size: 100% 100%;
+  margin-top: 2rem;
+  margin-bottom:2rem;
+}
+
+.study-container{
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.selected-meal-display{
+  justify-content: center;
+}
+
+/* #give-up-btn{
+  background-color: #cdb6a3;
+  border: none;
+  border-radius: 2vw;
+  color: white;
+  height: 5vw;
+  width: 20vw;
+  font-size: 3vw;
+  font-family: 'pixelFont';
+} */
 </style>

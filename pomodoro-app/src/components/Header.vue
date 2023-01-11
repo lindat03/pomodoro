@@ -22,7 +22,4 @@ h3 {
   color: #b99e88;
   margin-top: 2rem;
 }
-#title{
-  margin-top: 3rem;
-}
 </style>

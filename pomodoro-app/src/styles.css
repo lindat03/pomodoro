@@ -20,11 +20,12 @@ body {
 }
 
 .game-container {
-  position: relative;
-  height: 45rem;
+  position: flex;
+  align-items: stretch;
+  height: 100%;
   width: 80%;
   margin: auto;
-  padding: 2%;
+  padding: 5%;
   background: url(./assets/container.png) no-repeat;
   background-size: 100% 100%;
 }
@@ -43,7 +44,22 @@ h2 {
   color: #927a67;
   text-align: center;
 }
-/* h3 {
-  margin-top: 10px;
-  height: 8rem;
-} */
+h3{
+  font-size: 1.3vw;
+  line-height: 1.4vw;
+}
+
+span {
+  text-align: center;
+}
+
+.game-btns{
+  background-color: #cdb6a3;
+  border: none;
+  border-radius: 2vw;
+  color: white;
+  height: 5vw;
+  width: 20vw;
+  font-size: 3vw;
+  font-family: 'pixelFont';
+}

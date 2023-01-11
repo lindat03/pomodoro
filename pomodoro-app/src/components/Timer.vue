@@ -1,15 +1,18 @@
 <template>
   <div id="timer">
-    <audio id="timer-ding" src="../assets/timer-ding.mp3" v-if="timerDing === true"></audio>
-    <div id="display">
-      {{ timeDisplay() }}
+    <div class="timer-display">
+      <audio id="timer-ding" src="../assets/timer-ding.mp3" v-if="timerDing === true"></audio>
+      <div id="display">
+        {{ timeDisplay() }}
+      </div>
+      <div class="pause-icon-div">
+        <img v-if="timerOn===true" @click="toggleTimer()" class="pause-icon" src="../assets/pause.png" alt="" />
+        <img v-if="timerOn===false" @click="toggleTimer()" class="pause-icon" src="../assets/play.png" alt="" />
+      </div>
     </div>
-    <div class="pause-icon-div">
-      <img v-if="timerOn===true" @click="toggleTimer()" class="pause-icon" src="../assets/pause.png" alt="" />
-      <img v-if="timerOn===false" @click="toggleTimer()" class="pause-icon" src="../assets/play.png" alt="" />
+    <div class="end-session-btn">
+      <button @click="toggleSession()" class="game-btns" id="toggle-session">End {{ stageButtonText }}</button>
     </div>
-
-    <button @click="toggleSession()" class="toggle-session">End {{ stageButtonText }}</button>
   </div>
 </template>
 
@@ -35,9 +38,6 @@ export default {
     if (this.timerOn) {
       console.log('timer was on');
       this.toggleTimer();
-    }
-    if (this.progressInt !== 4) {
-      this.resetEverything();
     }
   },
   computed: mapState([
@@ -66,7 +66,6 @@ export default {
       if (this.sessionState === 0) {
         if (this.progressInt < 3) {
           this.changeToShortBreakTimer();
-          // this.incrementProgress();
           this.toggleTimerDing()
         } else {
           this.changeToLongBreakTimer();
@@ -76,7 +75,6 @@ export default {
       } else if (this.sessionState === 2) {
         this.incrementProgress(); //resets progress
         this.changeToStudyTimer();
-        //do bake function!!!!
       } else {
         this.changeToStudyTimer();
         this.incrementProgress();
@@ -107,7 +105,6 @@ export default {
       const minutesDisplay = minutes < 10 ? '0' + minutes : minutes;
       const secondsDisplay = seconds < 10 ? '0' + seconds : seconds;
       if (this.currentTimeInSeconds === 0) {
-        console.log('bruh');
         this.toggleSession();
       }
 
@@ -116,10 +113,8 @@ export default {
     toggleTimer() {
       this.timerOn = !this.timerOn;
       if (this.timerOn) {
-        this.timerButtonText = 'Pause';
         this.startTimer();
       } else {
-        this.timerButtonText = 'Start';
         this.stopTimer();
       }
     },
@@ -129,30 +124,18 @@ export default {
 
 <style scoped>
 #timer {
-  position: relative;
-  /* width: 100%;
-  background: url(../assets/timer-container.png) no-repeat;
-  background-size: 80% 80%;
-  background-position: center;
-  height: 200%; */
-  /* margin-top: -3vw; */
+  position: flex;
 }
-
+.timer-display{
+  position: relative;
+}
 #display {
   font-size: 3vw;
   position: relative;
   margin: auto;
   top: 50%;
-  transform: translate(0%, -50%);
-}
-.pause-icon-div {
-  /* position: absolute;
-  margin: auto;
-  top: 50%;
-  transform: translate(0%, -50%);
-  opacity: 10%;
-  z-index: 10;
-  transition: 0.5s; */
+  padding-top: 50%;
+  padding-bottom: 50%;
 }
 .pause-icon{
   position: absolute;
@@ -169,9 +152,8 @@ export default {
   opacity: 30%;
 }
 
-.toggle-session{
-  position: relative;
-  top: 90%;
+#toggle-session{
+  font-size: 2.4vw;
 }
 
 </style>

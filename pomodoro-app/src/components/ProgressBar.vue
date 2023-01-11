@@ -64,8 +64,6 @@ hr{
 }
 
 .progress-bar-line {
-  width: 50%;
-  margin: auto;
   margin-top: 3vw;
   display: grid;
   grid-template-columns: auto auto auto auto;
